@@ -1,4 +1,4 @@
-# Detailní popis testů vylepšeného Task Managera
+# Detailní popis testů Vylepšený task manager
 
 ## Úvod k testům
 Testovací skript pokrývá hlavní funkce CRUD (Create, Read, Update, Delete) pro správu úkolů v databázi MySQL. Testy jsou navrženy tak, aby ověřovaly jak správné fungování funkcí při platných vstupních datech (pozitivní scénáře), tak i správnou reakci aplikace na špatné a neplatné vstupy (negativní scénáře).
@@ -7,30 +7,30 @@ Testovací skript pokrývá hlavní funkce CRUD (Create, Read, Update, Delete) p
 
 ## Detailní popis testu
 
-- **Testy pracují s testovací databází**, která se při každém testu vyčistí, aby všechny testy byly nezávislé a neovlivňovaly se navzájem.
+- **Testy pracují s testovací databází: test_task_manager_db. Pokud DB neexistuje, před spuštěním testů je vytvoena, před spuštěním každého testu se vyčistí, aby všechny testy byly nezávislé a neovlivňovaly se navzájem.
 - Každý test používá `fixture` (`db_connection`), která vytvoří připojení k DB, tabulku úkolů (pokud neexistuje) a před spuštěním testu tabulku vyčistí.
-- Po testu tabulka opět projde vyčištěním (pokud není úklid komentovaný).
+- Po testu tabulka opět projde vyčištěním (pokud není úklid zakomentovaný).
 - Testy volají přímo funkce, které implementují operace nad databází (přidání úkolu, aktualizace stavu, odstranění úkolu).
-- Každý test ověřuje výsledky pomocí asertací (kontrola počtu záznamů, hodnot v databázi nebo očekávaných výjimek).
+- Každý test ověřuje výsledky pomocí asert (kontrola počtu záznamů, hodnot v databázi nebo očekávaných výjimek).
 - V negativních testech se očekávají výjimky, pokud jsou vstupy neplatné nebo chybné.
 
 ---
 
 ## Detailní popis jednotlivých testovacích scénářů
 
-### 1. test_pridani_ukolu_positivni
+### 1. test_pridani_ukolu_pozitivni
 - **Co testuje:** Přidání nového úkolu s platným názvem a popisem.
 - **Postup:** Funkce vloží do DB úkol "Test úkol" s popisem "Popis úkolu" a ověří, zda se úkol skutečně uloží (kontrola existence 1 záznamu).
-- **Cíl:** Potvrdit, že přidání úkolu funguje korektně.
+- **Cíl:** Potvrzení, že přidání úkolu funguje správně.
   
 ### 2. test_pridani_ukolu_negativni
 - **Co testuje:** Chování při přidání úkolu s prázdným názvem.
-- **Postup:** Pokusí se přidat úkol s prázdným názvem (""), očekává vyhození `ValueError`.
+- **Postup:** Pokusí se přidat úkol s prázdným názvem (""), očekává upozornění na chybu `ValueError`.
 - **Cíl:** Ověřit validaci názvu úkolu a správnou reakci na neplatný vstup.
 
 ### 3. test_pridani_ukolu_negativni_popis
 - **Co testuje:** Chování při přidání úkolu s prázdným popisem.
-- **Postup:** Pokusí se přidat úkol s platným názvem, ale prázdným popisem, očekává `ValueError`.
+- **Postup:** Pokusí se přidat úkol s platným názvem, ale prázdným popisem, očekává upozornění na chybu `ValueError`.
 - **Cíl:** Ověřit validaci popisu při přidávání úkolu.
 
 ### 4. test_aktualizace_ukolu_positivni
@@ -40,7 +40,7 @@ Testovací skript pokrývá hlavní funkce CRUD (Create, Read, Update, Delete) p
 
 ### 5. test_aktualizace_ukolu_negativni
 - **Co testuje:** Reakci na neplatný stav při aktualizaci úkolu.
-- **Postup:** Přidá úkol "Úkol invalidní stav", vyhledá ID, pokusí se nastavit neplatný stav (např. "Neplatný stav") a očekává `ValueError`.
+- **Postup:** Přidá úkol "Úkol nevalidní stav", vyhledá ID, pokusí se nastavit neplatný stav (např. "Neplatný stav") a očekává `ValueError`.
 - **Cíl:** Ověřit, že je správně ošetřeno neplatné zadání stavu.
 
 ### 6. test_odstraneni_ukolu_positivni
@@ -50,7 +50,7 @@ Testovací skript pokrývá hlavní funkce CRUD (Create, Read, Update, Delete) p
 
 ### 7. test_odstraneni_ukolu_negativni
 - **Co testuje:** Chování při pokusu odstranit neexistující úkol.
-- **Postup:** Pokusí se odstranit úkol s nesmyslným ID (999999) a očekává, že to nezmění obsah databáze (tabulka zůstává stejná).
+- **Postup:** Pokusí se odstranit úkol s nesmyslným ID (999999) a očekává, že to úkol nebude odstraněn (tabulka zůstává stejná).
 - **Cíl:** Ověřit, že odstranění neexistujícího záznamu nevyvolá chybu a nemění data.
 
 ---
@@ -61,8 +61,4 @@ Testovací skript pokrývá hlavní funkce CRUD (Create, Read, Update, Delete) p
 - Validace vstupů je ošetřena v aplikaci i v testech.
 - Čistota databáze mezi testy zajišťuje nezávislost testů bez vzájemného ovlivnění.
 - Popisy úkolů v testech jsou pouze orientační štítky pro lepší srozumitelnost kódu a nemají váhu mimo testovací prostředí.
-
----
-
-Pokud budete chtít, rád vám pomůžu s dalšími podrobnostmi nebo s dokumentací testů přímo v kódu či ve formátu, který potřebujete.
 

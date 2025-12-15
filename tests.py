@@ -1,5 +1,7 @@
 import pytest
 import mysql.connector
+import pymysql
+from pymysql import Error
 from datetime import datetime
 
 DB_CONFIG = {
@@ -10,7 +12,21 @@ DB_CONFIG = {
 }
 
 @pytest.fixture(scope="function")
-def db_connection():
+def vytvorit_db():
+    try:
+        # Pro vytvoření databáze nepotřebujeme parametr database
+        conn_config = {k: v for k, v in DB_CONFIG.items() if k != "database"}
+        conn = pymysql.connect(**conn_config)
+        cursor = conn.cursor()
+        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {DB_CONFIG['database']}")
+        conn.commit()
+        cursor.close()
+        conn.close()
+    except Error as err:
+        print(f"Chyba při vytváření DB: {err}")
+
+@pytest.fixture(scope="function")
+def db_connection(vytvorit_db):
     conn = mysql.connector.connect(**DB_CONFIG)
     cursor = conn.cursor()
     cursor.execute("""
@@ -78,8 +94,8 @@ def test_aktualizace_ukolu_positivni(db_connection):
 
 def test_aktualizace_ukolu_negativni(db_connection):
     conn, cursor = db_connection
-    pridat_ukol_db(cursor, conn, "Úkol invalidní stav", "Popis")
-    cursor.execute("SELECT id FROM ukoly WHERE nazev='Úkol invalidní stav'")
+    pridat_ukol_db(cursor, conn, "Úkol nevalidní stav", "Popis")
+    cursor.execute("SELECT id FROM ukoly WHERE nazev='Úkol nevalidní stav'")
     id_ukolu = cursor.fetchone()[0]
     with pytest.raises(ValueError):
         aktualizovat_ukol_db(cursor, conn, id_ukolu, "Neplatný stav")
