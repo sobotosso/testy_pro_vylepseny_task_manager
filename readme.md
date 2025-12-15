@@ -66,6 +66,15 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+- před spuštěním testů je nutné nastavit přihlašovací údaje pro připojení k DB:
+```bash
+DB_CONFIG = {
+    "host": "localhost",
+    "user": "user",
+    "password": "heslo",
+    "database": "test_task_manager_db"
+}
+```
 - spustíme testy: 
 ```bash
 pytest tests.py

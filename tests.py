@@ -6,8 +6,8 @@ from datetime import datetime
 
 DB_CONFIG = {
     "host": "localhost",
-    "user": "root",
-    "password": "02112008@*",  # upravte dle konfigurace
+    "user": "", # vyplnit uživatelské jméno
+    "password": "", #vyplnit heslo
     "database": "test_task_manager_db"
 }
 
