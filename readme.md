@@ -53,6 +53,22 @@ Testovací skript pokrývá hlavní funkce CRUD (Create, Read, Update, Delete) p
 - **Postup:** Pokusí se odstranit úkol s nesmyslným ID (999999) a očekává, že to úkol nebude odstraněn (tabulka zůstává stejná).
 - **Cíl:** Ověřit, že odstranění neexistujícího záznamu nevyvolá chybu a nemění data.
 
+## Spuštění testu (pro macos prostředí)
+- vytvoříme virtuální prostředí: python -m venv venv
+- aktivujeme virtuální prostředí: source venv/bin/activate
+- nainstalujeme závislosti: pip install -r requirements.txt
+- spustíme testy: pytest tests.py
+
+Všechny výsledky bychom měli vidět následovně:
+
+tests.py::test_pridani_ukolu_positivni PASSED                                                                                                        [ 14%]
+tests.py::test_pridani_ukolu_negativni PASSED                                                                                                        [ 28%]
+tests.py::test_pridani_ukolu_negativni_popis PASSED                                                                                                  [ 42%]
+tests.py::test_aktualizace_ukolu_positivni PASSED                                                                                                    [ 57%]
+tests.py::test_aktualizace_ukolu_negativni PASSED                                                                                                    [ 71%]
+tests.py::test_odstraneni_ukolu_positivni PASSED                                                                                                     [ 85%]
+tests.py::test_odstraneni_ukolu_negativni PASSED                                                                                                     [100%]
+
 ---
 
 ## Shrnutí
