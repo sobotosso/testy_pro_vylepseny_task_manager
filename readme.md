@@ -54,13 +54,24 @@ Testovací skript pokrývá hlavní funkce CRUD (Create, Read, Update, Delete) p
 - **Cíl:** Ověřit, že odstranění neexistujícího záznamu nevyvolá chybu a nemění data.
 
 ## Spuštění testu (pro macos prostředí)
-- vytvoříme virtuální prostředí: python -m venv venv
-- aktivujeme virtuální prostředí: source venv/bin/activate
-- nainstalujeme závislosti: pip install -r requirements.txt
-- spustíme testy: pytest tests.py
-
+- vytvoříme virtuální prostředí: 
+```bash
+python -m venv venv
+```
+- aktivujeme virtuální prostředí: 
+```bash
+source venv/bin/activate
+```
+- nainstalujeme závislosti: 
+```bash
+pip install -r requirements.txt
+```
+- spustíme testy: 
+```bash
+pytest tests.py
+```
 Všechny výsledky bychom měli vidět následovně:
-
+```bash
 tests.py::test_pridani_ukolu_positivni PASSED                                                                                                        [ 14%]
 tests.py::test_pridani_ukolu_negativni PASSED                                                                                                        [ 28%]
 tests.py::test_pridani_ukolu_negativni_popis PASSED                                                                                                  [ 42%]
@@ -68,7 +79,7 @@ tests.py::test_aktualizace_ukolu_positivni PASSED                               
 tests.py::test_aktualizace_ukolu_negativni PASSED                                                                                                    [ 71%]
 tests.py::test_odstraneni_ukolu_positivni PASSED                                                                                                     [ 85%]
 tests.py::test_odstraneni_ukolu_negativni PASSED                                                                                                     [100%]
-
+```
 ---
 
 ## Shrnutí
